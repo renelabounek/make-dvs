@@ -17,6 +17,7 @@ FilePath=~/git/make-dvs # NECESSARY TO CHANGE BASED ON YOUR HARDDISK!!! / TREBA 
 ##TYPE=SPNpS # same point number per shell
 #DATE=20240324 # YYYYMMDD
 #printlabel=0
+#increasevariable1=1
 
 
 # Convert 90dir 3shell txt file
@@ -35,6 +36,7 @@ TYPE=sc-bmax3000 # number of directions per shell given by: https://docs.google.
 #TYPE=SPNpS # same point number per shell
 DATE=20240408 # YYYYMMDD
 printlabel=0
+increasevariable1=0
 
 
 ProtocolFile=${FilePath}/${bNUM}dir_${SHELLS}shells_${TYPE}_$DATE.txt
@@ -54,10 +56,10 @@ elif [ $SHELLS -eq 3 ]; then
 	DVSFILE=$FilePath/${bNUM}dir_${SHELLS}shells_${TYPE}_${DATE}.dvs.txt
 	B1=$(echo "scale=8;sqrt($B1)" | bc -l | sed -e 's/^\./0./' -e 's/^-\./-0./')
 	B2=$(echo "scale=8;sqrt($B2)" | bc -l | sed -e 's/^\./0./' -e 's/^-\./-0./')
-	echo $DVSFILE
-	echo $B1
-	echo $B2
-	echo $B3
+	#echo $DVSFILE
+	#echo $B1
+	#echo $B2
+	#echo $B3
 elif [ $SHELLS -eq 6 ]; then
     #B1=$(echo "scale=8;$b1/$b4" | bc -l | sed -e 's/^\./0./' -e 's/^-\./-0./') # If split on two separate protocols with B4 max, then divide with b4 the first four b-values
 	#B2=$(echo "scale=8;$b2/$b4" | bc -l | sed -e 's/^\./0./' -e 's/^-\./-0./')
@@ -121,7 +123,7 @@ while read -r LINE; do
 	VARIABLE2=$(echo $LINE | cut -f2 -d ' ')
 	VARIABLE3=$(echo $LINE | cut -f3 -d ' ')
 	VARIABLE4=$(echo $LINE | cut -f4 -d ' ')
-	if [ $VARIABLE1 -eq 0 ]; then
+	if [ $increasevariable1 -eq 1 ]; then
 	    VARIABLE1=$(($VARIABLE1+1))
     fi
 	if [ $VARIABLE1 -eq 1 ]; then
